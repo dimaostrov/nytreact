@@ -40,7 +40,7 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="mw8">
+      <div className="mw8 center">
         <Hader />
         <Search submit={this.handleSubmit} change={this.handleChange} sY={this.state.startYear} eY={this.state.endYear} topic={this.state.topic} />
         <Saved articles={this.state.saved} />
