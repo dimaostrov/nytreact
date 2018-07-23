@@ -11,7 +11,7 @@ var apiRouter = require('./routes/api');
 
 var app = express();
 
-mongoose.connect('mongodb://localhost/nytreact');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/nytreact');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -28,8 +28,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
 app.use('/api', apiRouter);
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'))
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

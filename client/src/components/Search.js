@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Search = props => 
-<div className="mw8 center ba pa4">
+<div className="mw8 center ba p34">
   <form className="flex center" onSubmit={props.submit}>
     <label htmlFor="">Search</label>
     <input className="mw4 h2 bb b--orange bw2" type="text" value={props.topic} name="topic" onChange={props.change}/>
