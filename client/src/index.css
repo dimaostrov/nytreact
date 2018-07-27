@@ -3,3 +3,9 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.bg-site {
+  background-color: #85FFBD;
+background-image: linear-gradient(45deg, #85FFBD 7%, #FFFB7D 49%, #ffffff 87%);
+
+}

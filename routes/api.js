@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
+const mongoose = require('mongoose');
 
 const Article = require('../models/articles');
+const Comment = require('../models/comments');
 
 /* GET users listing. */
 router.get('/articles', function(req, res, next) {
@@ -25,6 +27,19 @@ router.delete('/articles/:id', function(req, res, next) {
     return res.status(200).send(response);
   }) 
 });
+
+router.post('/comment', (req, res) => {
+  const body = req.body
+  const comment = new Comment({
+    body: body.comment,
+    date: Date.now(),
+    article: body.article_id
+  })
+  comment.save(err => {
+    if (err) return handleError(err);
+    Article.findOneAndUpdate(comment.article, { $push: {comments: comment._id}})
+  })
+})
 
 module.exports = router;
 
