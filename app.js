@@ -1,7 +1,9 @@
+require('babel-register');
 const mongoose = require("mongoose");
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
+// var cors = require('cors')
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const bodyParser = require("body-parser");
@@ -10,7 +12,7 @@ var indexRouter = require("./routes/index");
 var apiRouter = require("./routes/api");
 
 var app = express();
-
+// app.use(cors());
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/nytreact");
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -26,7 +28,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "client/build")));
 
 app.use("/api", apiRouter);
 
@@ -35,7 +37,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
 // catch 404 and forward to error handler
