@@ -1,11 +1,14 @@
 import React from 'react';
+import { Menu, Container, Dropdown } from 'semantic-ui-react'
 
 const Hader = props =>
-<div className="bg-yellow pa3 mb3 ba b--silver br3">
-  <div className="mw6 center">
-    <h1>NY Times Article Searcher</h1>
-    <h3>Search for and annotate articles of interest</h3>
-  </div>
-</div>
+<Menu attached='top' inverted size='massive' color='teal'>
+<Container>
+  <Menu.Item as='a' header>
+    NYT Article React Implementation
+  </Menu.Item>
+</Container>
+</Menu>
+
 
 export default Hader;

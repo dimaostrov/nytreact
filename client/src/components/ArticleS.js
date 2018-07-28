@@ -24,7 +24,7 @@ const ArticleS = props => (
     </button>
     <div>Comments:</div>
     <div></div>
-    <div>Search:</div>
+    <div>Enter Comment:</div>
     <form>
     <input className="mw4 center" type="text" name='comment' onSubmit={props.submit} />
     </form>
