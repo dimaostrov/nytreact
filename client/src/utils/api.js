@@ -5,9 +5,10 @@ const apiKey = {
 };
 
 export const postSearch = (query = "", startYear = "", endYear = "") => {
+  const url =  `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${query +
+  validateYears([startYear, endYear])}`
   return rp({
-    url: `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${query +
-      validateYears([startYear, endYear])}`,
+    url: url,
     qs: apiKey
   }).then(body => JSON.parse(body))
     .catch(err => console.log(err));
@@ -29,11 +30,10 @@ export const savedArticles = () => {
 
 const validateYears = years => {
   let result = years
-    .map(year => {
-      return String(year.length) === 4 && year > 1899
-        ? `&begin_date=${year}0101`
+    .map((year, i) => {
+      return (String(year).length === 4 && year > 1899)
+        ? `${i === 0 ? '&begin_date' : '&end_date'}=${year}0101`
         : "";
-    })
-    .join("");
+    }).join('');
   return result;
 };
