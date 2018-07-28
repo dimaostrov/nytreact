@@ -38,6 +38,17 @@ class App extends Component {
     savedArticles().then(res => this.setState({ saved: res }));
   }
 
+  deleteArticle = (id) => {
+    let data = id;
+    fetch(`/api/articles/${data}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(res => res.json());
+    this.setState({ saved: this.state.saved.filter(x => x._id !== id )})
+  };
+
   componentDidMount() {
     defaultSearch()
       // .then(res => console.log(res))
@@ -56,7 +67,7 @@ class App extends Component {
             eY={this.state.endYear}
             topic={this.state.topic}
           />
-          <Saved articles={this.state.saved} submit={this.commentSubmit} />
+          <Saved articles={this.state.saved} submit={this.commentSubmit} delArt={this.deleteArticle} />
           <div>Results</div>
           <Result results={this.state.result} />
         </div>
